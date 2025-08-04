@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Vishwajeet Parmar</title>
+    <meta name="description" content="hey...let's connect and build something great!">
+    <meta name="keywords" content="V9S9R, Vishwajeet Singh Parmar, Vishwajeet, Vishwajeet Parmar">
+    <meta name="author" content="Vishwajeet Parmar">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vishwajeet Parmar">
+    <meta property="og:description" content="hey...let's connect and build something great!">
+    <meta property="og:image" content="https://www.v9s9r.com/V9S9Rog.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://www.v9s9r.com">
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Vishwajeet Parmar">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@v9s9r">
+    <meta name="twitter:creator" content="@v9s9r">
+
+    <!-- Security -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Vishwajeet Parmar",
+      "url": "https://www.v9s9r.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/v9s9r",
+        "https://twitter.com/v9s9r",
+        "https://instagram.com/v9s9r"
+      ]
+    }
+    </script>
+
+    <!-- DNS Prefetch & Preconnect for Speed -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Favicon for Better Compatibility -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.v9s9r.com/apple-touch-icon.png">
+    <link rel="icon" href="https://www.v9s9r.com/V9S9R.ico">
+    <link rel="canonical" href="https://www.v9s9r.com">
+
+    <!-- Preload Font for Faster Loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <style>
+        body {
+            font-family: 'Comfortaa', Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h1 {
+            font-size: clamp(18px, 5vw, 26px);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            z-index: 2;
+            animation: fadeInText 1.5s ease-in-out forwards;
+        }
+        @keyframes fadeInText {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        a {
+            text-decoration: underline;
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #1B56FD;
+        }
+        a:active {
+            opacity: 0.6;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="stars"></canvas>
+    <h1>hey...let's <a href="https://linkedin.com/in/v9s9r" target="_blank" aria-label="Connect with me on LinkedIn">connect</a> and build something great!</h1>
+    <script>
+        const canvas = document.getElementById("stars");
+        const ctx = canvas.getContext("2d");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        let stars = Array.from({ length: 100 }, () => createStar());
+        let hoverTimers = new Map();
+
+        function createStar(x = Math.random() * canvas.width, y = Math.random() * canvas.height) {
+            return {
+                x,
+                y,
+                radius: Math.random() * 2 + 1,
+                alpha: Math.random() * 0.6 + 0.4,
+                speed: (Math.random() * 0.02 + 0.01) * 1.5625,
+                vx: (Math.random() - 0.5) * 0.15625, 
+                vy: (Math.random() - 0.5) * 0.15625
+            };
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(27, 86, 253, ${star.alpha})`;
+                ctx.fill();
+            });
+        }
+
+        function animateStars() {
+            stars.forEach(star => {
+                star.alpha += star.speed * (Math.random() > 0.5 ? 1 : -1);
+                if (star.alpha <= 0.2 || star.alpha >= 1) {
+                    star.speed *= -1;
+                }
+                star.x += star.vx;
+                star.y += star.vy;
+                if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
+                if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
+            });
+            drawStars();
+            requestAnimationFrame(animateStars);
+        }
+        drawStars();
+        animateStars();
+
+        canvas.addEventListener("mousemove", (event) => {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            stars.forEach(star => {
+                const dx = mouseX - star.x;
+                const dy = mouseY - star.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 10) {
+                    if (!hoverTimers.has(star)) {
+                        hoverTimers.set(star, setTimeout(() => {
+                            let multiplier = Math.floor(Math.random() * 4) + 2;
+                            for (let i = 0; i < multiplier; i++) {
+                                stars.push(createStar(star.x, star.y));
+                            }
+                            hoverTimers.delete(star);
+                        }, 500));
+                    }
+                } else {
+                    if (hoverTimers.has(star)) {
+                        clearTimeout(hoverTimers.get(star));
+                        hoverTimers.delete(star);
+                    }
+                }
+            });
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+                e.preventDefault();
+                window.location.href = "https://superprofile.v9s9r.com";
+            }
+        });
+    </script>
+</body>
+</html>
